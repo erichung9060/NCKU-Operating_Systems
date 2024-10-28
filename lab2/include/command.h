@@ -7,17 +7,16 @@
 #include <stdbool.h>
 
 struct cmd_node {
-	char **args;
-	int length;
-	char *in_file, *out_file;
-	int in,out;
-	struct cmd_node *next;
-	
+    char **args;
+    int length;
+    char *in_file, *out_file;
+    int in, out;
+    struct cmd_node *next;
 };
 
 struct cmd {
-	struct cmd_node *head;
-	int pipe_num;
+    struct cmd_node *head;
+    int pipe_num;
 };
 
 extern char *history[MAX_RECORD_NUM];
