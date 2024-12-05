@@ -1,8 +1,8 @@
-#include <stdio.h>
 #include <pthread.h>
-#include <unistd.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 /*Note: Value of LOCK is 0 and value of UNLOCK is 1.*/
 #define LOCK 0
@@ -16,12 +16,11 @@ void spin_lock() {
     asm volatile(
         "loop:\n\t"
         "mov $0, %%eax\n\t"
-        /*YOUR CODE HERE*/
-
-        /****************/
-        "js loop\n\t"
+        "xchg %%eax, %[lock]\n\t"
+        "cmpl $1, %%eax\n\t"
+        "jne loop\n\t"
         :
-        : [lock] "m" (lock)
+        : [lock] "m"(lock)
         : "eax", "memory"
     );
 }
@@ -29,20 +28,15 @@ void spin_lock() {
 void spin_unlock() {
     asm volatile(
         "mov $1, %%eax\n\t"
-        /*YOUR CODE HERE*/
-
-        /****************/
+        "xchg %%eax, %[lock]\n\t"
         :
-        : [lock] "m" (lock)
+        : [lock] "m"(lock)
         : "eax", "memory"
     );
 }
 
-
 void *thread(void *arg) {
-
-    for(int i=0; i<10000; i++){
-
+    for (int i = 0; i < 10000; i++) {
         spin_lock();
         a = a + 1;
         spin_unlock();
@@ -65,4 +59,3 @@ int main() {
     fprintf(fptr, "%d ", a);
     fclose(fptr);
 }
-

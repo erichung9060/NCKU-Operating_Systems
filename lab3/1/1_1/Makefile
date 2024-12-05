@@ -1,5 +1,5 @@
 judge:
-	@gcc -o 1.out 1_1.c
+	@gcc -o 1.out 1_1.c -pthread
 	@i=1; while [ $$i -le 100 ]; do \
 		./1.out; \
 		i=$$((i + 1)); \

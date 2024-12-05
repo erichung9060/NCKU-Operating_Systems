@@ -10,7 +10,7 @@ all:
 	$(MAKE) -C $(KDIR) M=$(PWD) modules
 
 clean:
-	@rm -f *.o *.ko *.mod.* *.symvers *.order *.mod.cmd *.mod .*.mod.* .*.*.cmd
+	@rm -f *.o *.ko *.mod.* *.symvers *.order *.mod.cmd *.mod .*.mod.* .*.*.cmd 3_2.txt
 
 Prog_1thread:
 	@echo "#define THREAD_NUMBER 1" > 3_2_Config.h
